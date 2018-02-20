@@ -13,7 +13,7 @@ button.onclick = function()
                 span.innerHTML = counter.toString();
             }
         }
-    }
+    };
     request.open('GET',"http://rizwanadam45.imad.hasura-app.io/counter",true)
     request.send(null);
 };
