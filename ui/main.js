@@ -15,4 +15,6 @@ button.onclick = function()
             }
         }
     }
+    request.open('GET',"http://rizwanadam45.imad.hasura-app.io/counter",true)
+    request.send(null);
 };
