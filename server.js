@@ -69,7 +69,7 @@ var pool = new Pool(config);
 app.get('/articles/articleName',function(req,res)
 {
     articleData
-    pool.query("SELECT * FROM article EHERE title = " + req.params.articleName,function(err,result)
+    pool.query("SELECT * FROM article EHERE title = " + 'req.params.articleName',function(err,result)
     {
         if(err)
         {
