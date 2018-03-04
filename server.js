@@ -66,6 +66,29 @@ app.get('/article-one', function(req,res)
 )
 
 var pool = new Pool(config);
+app.get('/articles/articleName',function(req,res)
+{
+    articleData
+    pool.query("SELECT * FROM article EHERE title = " + req.params.articleName,function(err,result)
+    {
+        if(err)
+        {
+            res.status(500).send(err.toString());
+        }
+        else
+        {
+            if(result.rows.length === 0)
+            {
+                res.status(404).send('Article not found!');
+            }
+            else
+            {
+                var articleData = result.rows[0];
+                res.send(createTemplate(articleData));
+            }
+        }
+    });
+})
 app.get('/test-db',function(req,res)
 {
     pool.query('SELECT name,id FROM test',function(err,result){
