@@ -63,12 +63,11 @@ app.get('/article-one', function(req,res)
 {
   res.sendFile(path.join(__dirname, 'ui', 'article-one.html'));
 }
-)
+);
 
 var pool = new Pool(config);
 app.get('/articles/articleName',function(req,res)
 {
-    articleData
     pool.query("SELECT * FROM article EHERE title = '" + req.params.articleName+"'",function(err,result)
     {
         if(err)
@@ -88,7 +87,7 @@ app.get('/articles/articleName',function(req,res)
             }
         }
     });
-})
+});
 app.get('/test-db',function(req,res)
 {
     pool.query('SELECT name,id FROM test',function(err,result){
