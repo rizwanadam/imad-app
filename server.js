@@ -2,6 +2,7 @@ var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
 var Pool = require('pg').Pool;
+var crypto = require('crypto');
 var config = {
     user: 'rizwanadam45',
     database:'rizwanadam45',
@@ -25,6 +26,16 @@ var articleTwo={
                     Nanananannananannanananannanan Batman!
                 </p>`
 }
+function hash(input , salt)
+{
+    var hashed = pbkdf25sync(input ,salt,10000,512,'sha512');
+    return hashed;
+}
+app.get('/hash/:input',function(req,res)
+{
+    var hashedString = hash(req.params.input,'Randddoom string')
+    res.send(hashedString);
+})
 function createTemplate(data)
 {   
     var title =data.title;
