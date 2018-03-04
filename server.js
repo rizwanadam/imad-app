@@ -29,7 +29,7 @@ var articleTwo={
 function hash(input , salt)
 {
     var hashed = pbkdf25sync(input ,salt,10000,512,'sha512');
-    return hashed;
+    return hashed.toString('hex');
 }
 app.get('/hash/:input',function(req,res)
 {
