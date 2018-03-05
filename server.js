@@ -3,6 +3,7 @@ var morgan = require('morgan');
 var path = require('path');
 var Pool = require('pg').Pool;
 var crypto = require('crypto');
+var bodyParser = require("body-Parser");
 var config = {
     user: 'rizwanadam45',
     database:'rizwanadam45',
@@ -36,7 +37,7 @@ app.get('/hash/:input',function(req,res)
     var hashedString = hash(req.params.input,'Randddoom string')
     res.send(hashedString);
 });
-app.get('/create-user',function(req,res)
+app.post('/create-user',function(req,res)
 {
     var username = req.body.username;
     var password = req.body.password;
