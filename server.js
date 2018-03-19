@@ -4,6 +4,7 @@ var path = require('path');
 var Pool = require('pg').Pool;
 var crypto = require('crypto');
 var bodyParser = require("body-parser");
+var session = require('express-session');
 var config = {
     user: 'rizwanadam45',
     database:'rizwanadam45',
@@ -79,6 +80,8 @@ app.post('/login',function(req,res)
                  var hashedPassword = hash(password,salt);
                  if(hashedPassword === dbString)
                  {
+                     
+                req.session.auth = {userId: result.rows[0].id};
                      res.send('credentials correct!');
                  }
                  else
@@ -89,6 +92,33 @@ app.post('/login',function(req,res)
         }
     });
 });
+app.get('/check-login', function(req, res) {
+   if (req.session && req.session.auth && req.session.auth.userId) {
+       res.send('You are logged in: ' + req.session.auth.userId.toString());
+   }else {
+       res.send('You are not logged in');
+       
+   }
+});
+app.get('/logout', function (req, res) {
+   delete req.session.auth;
+   res.send('Logged out');
+});
+
+var pool = new Pool(config);
+app.get('/test-db', function (req, res) {
+    // make a select request
+    // return a response with the results
+    pool.query('SELECT * FROM test', function (err, result)  {
+       if (err) {
+           res.status(500).send(err.toString());
+       } else {
+           res.send(JSON.stringify(result.rows));
+       }
+    });
+    
+});
+
 function createTemplate(data)
 {   
     var title =data.title;
