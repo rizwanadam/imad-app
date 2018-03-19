@@ -27,7 +27,7 @@ var articleTwo={
                 <p>
                     Nanananannananannanananannanan Batman!
                 </p>`
-}
+};
 function hash(input , salt)
 {
     var hashed = crypto.pbkdf2Sync(input ,salt,10000,512,'sha512');
@@ -35,7 +35,7 @@ function hash(input , salt)
 }
 app.get('/hash/:input',function(req,res)
 {
-    var hashedString = hash(req.params.input,'Randddoom string')
+    var hashedString = hash(req.params.input,'Randddoom string');
     res.send(hashedString);
 });
 app.post('/create-user',function(req,res)
@@ -170,21 +170,21 @@ app.get('/counter',function(req,res)
 {
     counter++;
     res.send(counter.toString());
-})
+});
 app.get('/ui/main.js',function(req,res)
 {
     res.sendFile(path.join(__dirname, 'ui', 'main.js'));
-})
+});
 app.get('/article-two', function(req,res)
 {
    res.send(createTemplate(articleTwo));
 }
-)
+);
 app.get('/article-three', function(req,res)
 {
     res.send('Article three will be displayed here');
 }
-)
+);
 app.get('/ui/style.css', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'style.css'));
 });
